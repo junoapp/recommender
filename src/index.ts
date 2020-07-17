@@ -45,21 +45,21 @@ export const detectFieldInfo = (path: string) => {
   // const grouped = recursiveGroupBy(data, dimensions);
   // console.log(grouped);
 
-  fields.sort((a, b) => {
-    if (a.valid === b.valid) {
-      if (a.missing === b.missing) {
-        // if (a.distinct === b.distinct) {
-        //   return b.distinct - b.distinct;
-        // }
+  // fields.sort((a, b) => {
+  //   if (a.valid === b.valid) {
+  //     if (a.missing === b.missing) {
+  //       // if (a.distinct === b.distinct) {
+  //       //   return b.distinct - b.distinct;
+  //       // }
 
-        return b.distinct - a.distinct;
-      }
+  //       return b.distinct - a.distinct;
+  //     }
 
-      return b.missing - b.missing;
-    }
+  //     return b.missing - b.missing;
+  //   }
 
-    return b.valid - a.valid;
-  });
+  //   return b.valid - a.valid;
+  // });
 
   console.table(fields);
 
