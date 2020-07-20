@@ -40,6 +40,26 @@ declare module 'datalib' {
   };
 }
 
+declare module 'ddl' {
+  export function postgresql(
+    db: any,
+    table: string,
+    callback: (err: any, ddl: any) => void
+  ): void;
+}
+
+// declare module 'pg' {
+//   export class Client {
+//     connect(connection: {
+//       user: string;
+//       host: string;
+//       database: string;
+//       password: string;
+//       port: number;
+//     }): void;
+//   }
+// }
+
 // declare module 'datalib/src/import/load' {
 //   function load(param: any, callback: any): void;
 //   export = load;

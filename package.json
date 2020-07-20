@@ -35,12 +35,15 @@
   "devDependencies": {
     "@types/jest": "^26.0.4",
     "@types/node": "^14.0.22",
+    "@types/pg": "^7.14.4",
     "husky": "^4.2.5",
     "tsdx": "^0.13.2",
     "tslib": "^2.0.0",
     "typescript": "^3.9.6"
   },
   "dependencies": {
-    "datalib": "^1.9.2"
+    "datalib": "^1.9.2",
+    "ddl": "^2.0.2",
+    "pg": "^8.3.0"
   }
 }
