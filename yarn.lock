@@ -1161,6 +1161,19 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/pg-types@*":
+  version "1.11.5"
+  resolved "https://registry.yarnpkg.com/@types/pg-types/-/pg-types-1.11.5.tgz#1eebbe62b6772fcc75c18957a90f933d155e005b"
+  integrity sha512-L8ogeT6vDzT1vxlW3KITTCt+BVXXVkLXfZ/XNm6UqbcJgxf+KPO7yjWx7dQQE8RW07KopL10x2gNMs41+IkMGQ==
+
+"@types/pg@^7.14.4":
+  version "7.14.4"
+  resolved "https://registry.yarnpkg.com/@types/pg/-/pg-7.14.4.tgz#15cfcfd9300f94fd44e6191a1b0ba18d2de209f6"
+  integrity sha512-yCKVMCcFPZSFHGg+8qjY368uf3ruyDBPjxvOU2ZcGa/vRFo5Ti5Y6z6vl+2hxtwm9VMWUGb6TWkIk3cIV8C0Cw==
+  dependencies:
+    "@types/node" "*"
+    "@types/pg-types" "*"
+
 "@types/qs@^6.2.31":
   version "6.9.3"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.3.tgz#b755a0934564a200d3efdf88546ec93c369abd03"
@@ -2114,13 +2127,6 @@ datalib@^1.9.2:
     request "^2.67.0"
     sync-request "^6.0.0"
     topojson-client "^3.0.0"
-
-ddl@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/ddl/-/ddl-2.0.2.tgz#954203fa12704b795228ea5b645191d3a04bdf02"
-  integrity sha1-lUID+hJwS3lSKOpbZFGR06BL3wI=
-  dependencies:
-    lazy-object ">= 1.0.0 < 2"
 
 debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -3990,11 +3996,6 @@ language-tags@^1.0.5:
   integrity sha1-0yHbxNowuovzAk4ED6XBRmH5GTo=
   dependencies:
     language-subtag-registry "~0.3.2"
-
-"lazy-object@>= 1.0.0 < 2":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/lazy-object/-/lazy-object-1.0.1.tgz#3866434d42104aac699fd3998928cb3ca7faf249"
-  integrity sha1-OGZDTUIQSqxpn9OZiSjLPKf68kk=
 
 left-pad@^1.3.0:
   version "1.3.0"
