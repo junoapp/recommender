@@ -36,7 +36,7 @@ describe('detectFieldInfoFromPostgre', () => {
         database: 'juno',
         port: 5432,
       },
-      'vehicle'
+      'vehicle2'
     );
 
     console.table(fields);

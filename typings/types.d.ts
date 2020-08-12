@@ -38,6 +38,27 @@ declare module 'datalib' {
   export const format: {
     summary: (data: any) => string;
   };
+
+  type fnA = (x: any[], y: any[]) => number;
+  type fnB = (values: any[], accessorX: any, accessorY: any) => number;
+
+  export type corA = fnA;
+  export type corB = fnB;
+  export type corC = {
+    rank: fnB;
+    dist: fnB;
+  };
+
+  export const cor: corA | corB | corC;
+
+  export const covariance: fnA | fnB;
+  export const cohensd: fnA | fnB;
+
+  // export function cor(x: any[], y: any[]): any;
+  // export function cor(values: any[], accessorX: any, accessorY: any): any;
+  // export const cor: {
+  //   rank: () => void;
+  // };
 }
 
 declare module 'ddl' {

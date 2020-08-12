@@ -3,7 +3,7 @@ import { Client } from 'pg';
 import { readFileSync } from 'fs';
 
 interface Field {
-  group: 'dimension' | 'measure';
+  group: 'dimension' | 'measure' | 'helper';
   name: string;
   type: string;
   count: number;
@@ -32,7 +32,7 @@ export const detectFieldInfoFromCSV = (
 
   const stats = datalib.summary(data);
 
-  const fields: Field[] = [];
+  let fields: Field[] = [];
 
   stats.forEach(stat => {
     fields.push({
@@ -47,7 +47,12 @@ export const detectFieldInfoFromCSV = (
     });
   });
 
-  return sortFields(fields);
+  fields = sortFields(fields);
+
+  // calculateCorrelation(fields, data);
+  recommender(fields);
+
+  return fields;
 };
 
 export const detectFieldInfoFromPostgre = async (
@@ -110,7 +115,7 @@ export const detectFieldInfoFromPostgre = async (
     [table]
   );
 
-  const fields: Field[] = [];
+  let fields: Field[] = [];
 
   const count = await db.query(`SELECT COUNT(*) as "count" FROM ${table}`);
 
@@ -154,7 +159,14 @@ export const detectFieldInfoFromPostgre = async (
     });
   }
 
-  return sortFields(fields);
+  fields = sortFields(fields);
+
+  // const data = await db.query(`SELECT * FROM ${table}`);
+
+  // calculateCorrelation(fields, data.rows);
+  recommender(fields);
+
+  return fields;
 };
 
 function sortFields(fields: Field[]): Field[] {
@@ -211,4 +223,85 @@ function sortFields(fields: Field[]): Field[] {
     });
 
   return fields;
+}
+
+function recommender(fields: Field[]) {
+  const charts = [];
+
+  for (const field of fields) {
+    if (field.group === 'measure') {
+      charts.push({
+        type: 'chart',
+        name: field.name,
+        chartType: 'stat',
+        function: 'sum',
+      });
+    }
+  }
+
+  for (const field of fields) {
+    if (field.group === 'dimension') {
+      if (field.distinct < 300) {
+        charts.push({
+          type: 'filter',
+          name: field.name,
+        });
+      }
+
+      charts.push({
+        type: 'chart',
+        name: field.name,
+        chartType: 'line',
+        columns: fields
+          .filter(f => f.group === 'measure')
+          .map(f => f.name)
+          .join(', '),
+      });
+    }
+  }
+
+  console.table(charts);
+}
+
+function calculateCorrelation(fields: Field[], data: any[]) {
+  const numbers = fields.filter(
+    f => f.group === 'measure' && ['integer', 'number'].includes(f.type)
+  );
+
+  const corr = [];
+
+  console.log(datalib.cor);
+
+  for (const number1 of numbers) {
+    for (const number2 of numbers) {
+      if (number1.name !== number2.name) {
+        corr.push({
+          field1: number1.name,
+          field2: number2.name,
+          cor1: (datalib.cor as datalib.corB)(
+            data,
+            (d: any) => d[number1.name],
+            (d: any) => d[number2.name]
+          ),
+          cor2: (datalib.cor as datalib.corC).rank(
+            data,
+            (d: any) => d[number1.name],
+            (d: any) => d[number2.name]
+          ),
+          // cor3: (datalib.cor as datalib.corC).dist(
+          //   data,
+          //   (d: any) => d[number1.name],
+          //   (d: any) => d[number2.name]
+          // ),
+          cor4: datalib.cohensd(
+            data,
+            (d: any) => d[number1.name],
+            (d: any) => d[number2.name]
+          ),
+        });
+      }
+    }
+  }
+
+  console.table(corr);
 }
